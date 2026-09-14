@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Praxis Church OS — a church management console, built on a real church</title>
+    <meta
+      name="description"
+      content="A click-through prototype of a church management console: the believers' register, service planning, giving in Kenyan shillings, certificates, conferences and communications — modelled on Destiny Sanctuary Int'L, Nyahururu."
+    />
+    <link rel="canonical" href="https://maxblessngugi.github.io/praxis-mockup/" />
+
+    <!-- What a WhatsApp / Twitter / Facebook link to this page shows. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Praxis Church OS" />
+    <meta property="og:url" content="https://maxblessngugi.github.io/praxis-mockup/" />
+    <meta property="og:title" content="Praxis Church OS — one console for the whole church office" />
+    <meta
+      property="og:description"
+      content="A click-through prototype: members, services and worship, giving in Kenyan shillings, certificates, conferences and communications — modelled on Destiny Sanctuary Int'L, Nyahururu. Open it in your browser."
+    />
+    <meta property="og:image" content="https://maxblessngugi.github.io/praxis-mockup/og-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Praxis console: church management for Destiny Sanctuary Int'L, Nyahururu." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#FDF8F3" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      :root {
+        --paper: #fdf8f3;
+        --ink: #1c1917;
+        --muted: #57534e;
+        --faint: #78716c;
+        --line: #eae2d9;
+        --accent: #c2410c;
+        --soft: #fdefe6;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 400 16px/1.62 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+      a {
+        color: var(--accent);
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 6px;
+      }
+      .wrap {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 0 22px;
+      }
+
+      /* ---------------------------------------------------------- top bar */
+      .bar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: rgba(253, 248, 243, 0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .bar .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        min-height: 62px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Plus Jakarta Sans", Inter, sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .mark {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 9px;
+        background: var(--accent);
+        color: #fff;
+      }
+      .mark svg {
+        width: 16px;
+        height: 16px;
+      }
+      .bar .brand span {
+        display: none;
+      }
+      @media (min-width: 480px) {
+        .bar .brand span {
+          display: inline;
+        }
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 12px 19px;
+        border-radius: 11px;
+        box-shadow: 0 6px 18px rgba(194, 65, 12, 0.26);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 9px 22px rgba(194, 65, 12, 0.32);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+      .btn.small {
+        padding: 9px 14px;
+        font-size: 14px;
+      }
+      .btn .arrow {
+        transition: transform 0.15s ease;
+      }
+      .btn:hover .arrow {
+        transform: translateX(3px);
+      }
+
+      /* ------------------------------------------------------------- hero */
+      .hero {
+        display: grid;
+        gap: 36px;
+        padding: 52px 0 12px;
+      }
+      @media (min-width: 920px) {
+        .hero {
+          grid-template-columns: 1fr 1.02fr;
+          align-items: center;
+          gap: 48px;
+          padding: 74px 0 26px;
+        }
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--soft);
+        color: var(--accent);
+        border-radius: 999px;
+        padding: 6px 13px;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .hero h1 {
+        font-size: clamp(34px, 6.2vw, 50px);
+        line-height: 1.06;
+        font-weight: 800;
+        margin: 18px 0 0;
+      }
+      .hero .sub {
+        font-size: clamp(17px, 2.4vw, 19px);
+        color: var(--muted);
+        margin: 16px 0 0;
+        max-width: 34ch;
+      }
+      .hero .body {
+        color: var(--muted);
+        margin: 16px 0 0;
+        max-width: 46ch;
+      }
+      .cta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+        margin-top: 26px;
+      }
+      .cta .hint {
+        font-size: 14px;
+        color: var(--faint);
+        max-width: 26ch;
+      }
+
+      .shot {
+        margin: 0;
+      }
+      .shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        border: 1px solid var(--line);
+        box-shadow: 0 20px 44px rgba(28, 25, 23, 0.11);
+      }
+      .shot figcaption {
+        margin-top: 12px;
+        font-size: 13.5px;
+        color: var(--faint);
+        text-align: center;
+      }
+
+      /* --------------------------------------------------------- modules */
+      .inside {
+        padding: 62px 0 10px;
+        border-top: 1px solid var(--line);
+        margin-top: 66px;
+      }
+      .inside h2 {
+        font-size: clamp(24px, 3.6vw, 30px);
+        font-weight: 800;
+      }
+      .lede {
+        color: var(--muted);
+        margin: 12px 0 0;
+        max-width: 56ch;
+      }
+      .modules {
+        list-style: none;
+        padding: 0;
+        margin: 32px 0 0;
+        display: grid;
+        gap: 2px 40px;
+      }
+      @media (min-width: 760px) {
+        .modules {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .modules li {
+        padding: 15px 0;
+        border-top: 1px solid var(--line);
+      }
+      .modules h3 {
+        font-size: 15.5px;
+        font-weight: 700;
+      }
+      .modules p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 14.5px;
+      }
+
+      /* ------------------------------------------------------------ note */
+      .note {
+        margin: 46px 0 0;
+        background: var(--soft);
+        border: 1px solid #f5d9c8;
+        border-radius: 15px;
+        padding: 22px 24px;
+      }
+      .note p {
+        margin: 0;
+        color: #7c2d12;
+        font-size: 14.5px;
+        max-width: 72ch;
+      }
+      .note p + p {
+        margin-top: 10px;
+      }
+
+      footer {
+        margin-top: 54px;
+        padding: 26px 0 44px;
+        border-top: 1px solid var(--line);
+        color: var(--faint);
+        font-size: 13.5px;
+      }
+      footer p {
+        margin: 0;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="bar">
+      <div class="wrap">
+        <div class="brand">
+          <span class="mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M12 3v6M9 6h6M6 21V11l6-4 6 4v10" />
+            </svg>
+          </span>
+          <span>Praxis Church OS</span>
+        </div>
+        <a class="btn small" href="Praxis-Church-OS-Mockup.html">
+          Open the demo <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <div>
+          <p class="eyebrow">Click-through prototype</p>
+          <h1>A church management console, built around one real church.</h1>
+          <p class="sub">Destiny Sanctuary Int'L, Nyahururu — their service times, their ministries, their conferences.</p>
+          <p class="body">
+            One console for the whole church office: the believers' register, service planning and attendance,
+            tithes and offerings in Kenyan shillings, certificates, the conference calendar, and the
+            communications that keep everyone in step. This is the blueprint I'm building from — every screen
+            is there to click through, with no account and no server behind it.
+          </p>
+          <div class="cta">
+            <a class="btn" href="Praxis-Church-OS-Mockup.html">
+              Open the demo <span class="arrow" aria-hidden="true">→</span>
+            </a>
+            <p class="hint">The sign-in details are already filled in — one click gets you to the console.</p>
+          </div>
+        </div>
+
+        <figure class="shot">
+          <img
+            src="home.png"
+            width="1440"
+            height="1301"
+            alt="The console's home dashboard: the congregation at a glance, giving in Kenyan shillings, and the week's services."
+          />
+          <figcaption>Home — the dashboard the church office opens on a Sunday morning.</figcaption>
+        </figure>
+      </section>
+
+      <section class="inside wrap">
+        <h2>What the console covers</h2>
+        <p class="lede">
+          Ten sections, each with its own screens — the register, the service, the money, the records and the
+          announcements, in one place instead of five notebooks and a spreadsheet.
+        </p>
+        <ul class="modules">
+          <li>
+            <h3>Home</h3>
+            <p>The day at a glance: attendance, giving, what's next on the calendar and the tasks waiting on someone.</p>
+          </li>
+          <li>
+            <h3>Members &amp; Believers</h3>
+            <p>The church register — adding, finding and retiring members, and the family units they belong to.</p>
+          </li>
+          <li>
+            <h3>Services &amp; Worship</h3>
+            <p>The Sunday running order, attendance and census, who is serving, and the report each service leaves behind.</p>
+          </li>
+          <li>
+            <h3>Giving &amp; Stewardship</h3>
+            <p>Tithes, offerings, project funding, welfare and charity — every figure in Kenyan shillings.</p>
+          </li>
+          <li>
+            <h3>Groups &amp; Fellowships</h3>
+            <p>The seven departments, who leads them, and the volunteers who carry them.</p>
+          </li>
+          <li>
+            <h3>Reports &amp; Certificates</h3>
+            <p>Baptism, dedication, matrimony and discipleship records, printed ready for the church stamp.</p>
+          </li>
+          <li>
+            <h3>Communications</h3>
+            <p>Announcements, broadcasts, the conference calendar, prayer requests and birthdays.</p>
+          </li>
+          <li>
+            <h3>Church Council</h3>
+            <p>Dockets and resolutions, and the budget every department reports its spending against.</p>
+          </li>
+          <li>
+            <h3>Settings &amp; Profile</h3>
+            <p>The church's own profile — contact details, service times, vision, mission and core values.</p>
+          </li>
+          <li>
+            <h3>Admin</h3>
+            <p>Users and their rights, the recycle bin, and the finance audit trail.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="note wrap">
+        <p>
+          The records are mock, but the church isn't: the service times, the seven departments, the four national
+          conferences and the contact details all come from Destiny Sanctuary's own published pages.
+        </p>
+        <p>
+          Amounts read in Kenyan shillings, and the console's clock sits inside the 2025 cycle so the conferences
+          and reports read as upcoming. Nothing is stored and nothing is sent anywhere — it is one HTML file that
+          runs entirely in your browser.
+        </p>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <p>A prototype by Max Bless Ngugi. Open it on a laptop for the full console; it works on a phone too.</p>
+    </footer>
+  </body>
+</html>
